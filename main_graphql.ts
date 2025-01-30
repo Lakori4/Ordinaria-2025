@@ -8,7 +8,7 @@ import { resolvers } from "./resolvers.ts"
 const mUrl = Deno.env.get("mongo_url")
 
 if (!mUrl) {
-  throw new Error("No mongo url provided")
+  throw new Error(mUrl)
 }
 
 const client = new MongoClient(mUrl);
