@@ -15,9 +15,9 @@ const client = new MongoClient(mUrl);
 
 await client.connect();
 
-const mongoDB = client.db("");
+//const mongoDB = client.db("");
 
-const contactCollection = mongoDB.collection<>("");
+//const collection = mongoDB.collection<>("");
 
 
 const server = new ApolloServer ({
@@ -26,7 +26,7 @@ const server = new ApolloServer ({
 })
 
 const { url } = await startStandaloneServer(server, {
-    context: async () => ({contactCollection})
+    //context: async () => ({collection})
 })
 
 

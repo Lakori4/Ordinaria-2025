@@ -1,6 +1,6 @@
 {
   "tasks": {
-    "dev": "deno run --watch main_graphql.ts"
+    "dev": "deno run --env -A --watch main_graphql.ts"
   },
   "imports": {
     "@apollo/server": "npm:@apollo/server@^4.11.3",

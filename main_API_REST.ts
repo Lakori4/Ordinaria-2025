@@ -18,7 +18,7 @@ console.info("Connected to MongoDB");
 
 // Select the 'agenda' database and the 'users' collection
 const db = client.db("agenda");
-const collection = db.collection<>();
+//const collection = db.collection<>();
 
 // Main handler function to manage incoming HTTP requests
 const handler = async (req: Request): Promise<Response> => {
