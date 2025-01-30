@@ -4,7 +4,6 @@ import { startStandaloneServer} from "@apollo/server/standalone"
 
 import { typeDefs } from "./schema.ts"
 import { resolvers } from "./resolvers.ts"
-import { ContactModel } from "./types.ts";
 
 const mUrl = Deno.env.get("mongo_url")
 
