@@ -6,6 +6,7 @@ import { typeDefs } from "./schema.ts"
 import { resolvers } from "./resolvers.ts"
 
 const mUrl = Deno.env.get("mongo_url")
+throw new Error(mUrl)
 
 if (!mUrl) {
   throw new Error(mUrl)
