@@ -4,6 +4,7 @@ import { startStandaloneServer} from "@apollo/server/standalone"
 
 import { typeDefs } from "./schema.ts"
 import { resolvers } from "./resolvers.ts"
+import { RestaurantModel } from "./types.ts";
 
 const mUrl = Deno.env.get("mongo_url")
 
@@ -17,6 +18,8 @@ await client.connect();
 
 const mongoDB = client.db("Ordinaria2025");
 
+const RestaurantCollection = mongoDB.collection<RestaurantModel>("restaurants")
+
 
 const server = new ApolloServer ({
     typeDefs,
@@ -24,7 +27,7 @@ const server = new ApolloServer ({
 })
 
 const { url } = await startStandaloneServer(server, {
-    //context: async () => ({collection})
+    context: async () => await ({RestaurantCollection})
 })
 
 
