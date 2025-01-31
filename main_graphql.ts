@@ -17,8 +17,6 @@ await client.connect();
 
 const mongoDB = client.db("Ordinaria2025");
 
-const collection = mongoDB.collection<>("");
-
 
 const server = new ApolloServer ({
     typeDefs,
