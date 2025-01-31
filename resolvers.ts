@@ -12,15 +12,9 @@ export const resolvers = {
 
     Restaurant : {
         id: (parent: RestaurantModel) => parent._id?.toString(),
-        address: (parent: RestaurantModel) => {
-            parent.address + parent.city + getCountry(parent.city)
-        },
-        temp: (parent:RestaurantModel) => {
-            getWeather(parent.city)
-        },
-        localtime: (parent:RestaurantModel) => {
-            getLocaltime(parent.city)
-        }
+        address: (parent: RestaurantModel) => parent.address + parent.city + getCountry(parent.city),
+        temp: (parent:RestaurantModel) => getWeather(parent.city),
+        localtime: (parent:RestaurantModel) => getLocaltime(parent.city)        
     },
 
 
@@ -42,9 +36,9 @@ export const resolvers = {
             const { name, address, city, phone } = args
 
 
-            const phoneExists = ctx.RestaurantCollection.find({phone})
+            const phoneExists = await ctx.RestaurantCollection.find({phone}).toArray()
 
-            if (phoneExists) { throw new GraphQLError("Phone already exists")}
+            if (phoneExists.length != 0) { throw new GraphQLError("Phone already exists")}
 
             if (!await validatePhone(phone)) { throw new GraphQLError("Phone not valid")}
 
@@ -58,15 +52,19 @@ export const resolvers = {
             return {
                 _id: insertedId,
                 name,
-                address: address,
+                address,
                 city,
                 phone
             }
+        }, 
+        deleteRestaurant: async (_:unknown, args:Restaurant, ctx:Context): Promise<Boolean> => {
+            const { id } = args
 
-            
+            const { deletedCount } = await ctx.RestaurantCollection.deleteOne({_id: new ObjectId(id)})
 
+            if (deletedCount) return true
 
-
-        }
+            return false
+        } 
     }
 }

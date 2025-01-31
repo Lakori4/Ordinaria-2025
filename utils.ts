@@ -57,9 +57,9 @@ export async function getWeather(city: string) {
     const response: APICity = await data.json()
     if (!response) { throw new GraphQLError("City not found")}
 
-    console.log(data.body)
+    
 
-    return getTrueWeather(response.lat, response.lon, api_key)
+    return getTrueWeather(response.latitude, response.longitude, api_key)
 
 }
 
@@ -76,7 +76,7 @@ async function getTrueWeather (lat: number, lon: number, api_key:string) {
         if (data.status != 200) { throw new GraphQLError("API ERROR") }
 
     const response:APICity = await data.json()
-    
+
     return response.temp
 }
 
@@ -98,10 +98,25 @@ export async function getLocaltime(city:string) {
     const response: APICity = await data.json()
     if (!response) { throw new GraphQLError("City not found")}
 
-    return getTrueLocaltime(response.lat, response.lon, api_key)
+    console.log(response)
+
+    return getTrueLocaltime(response.latitude, response.longitude, api_key)
     
 }
 
 async function getTrueLocaltime(lat:number, lon: number, api_key: string) {
+
+    const url = `https://api.api-ninjas.com/v1/worldtime?lat=${lat}&lon=${lon}`
+    const data = await fetch (url, {
+        headers: {
+        'X-Api-Key': api_key
+        }})
+
+        if (data.status != 200) { throw new GraphQLError("API ERROR") }
+
+    const response:APICity = await data.json()
+
+    console.log(response)
     
+    return response.hour + ":" + response.minute
 }

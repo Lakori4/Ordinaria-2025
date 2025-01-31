@@ -24,10 +24,10 @@ export type APIPhone = {
 }
 
 export type APICity = {
-    lat: number,
-    lon: number,
+    latitude: number,
+    longitude: number,
     country: string,
-    temp: number
+    temp: number,
+    hour: string,
+    minute: string
 }
-
-//sjdv
