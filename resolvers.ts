@@ -12,7 +12,7 @@ export const resolvers = {
 
     Restaurant : {
         id: (parent: RestaurantModel) => parent._id?.toString(),
-        address: (parent: RestaurantModel) => parent.address + parent.city + getCountry(parent.city),
+        address: async (parent: RestaurantModel) => parent.address + ", " + parent.city + ", " + await getCountry(parent.city),
         temp: (parent:RestaurantModel) => getWeather(parent.city),
         localtime: (parent:RestaurantModel) => getLocaltime(parent.city)        
     },

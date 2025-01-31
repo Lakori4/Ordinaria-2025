@@ -34,10 +34,11 @@ export async function getCountry(city: string) {
 
         if (data.status != 200) { throw new GraphQLError("API ERROR") }
 
-    const response: APICity = await data.json()
+    const response: APICity[] = await data.json()
 
     if (!response) { throw new GraphQLError("City not found")}
-    return response.country
+    
+    return response[0].country
 }
 
 export async function getWeather(city: string) {
@@ -54,12 +55,12 @@ export async function getWeather(city: string) {
 
         if (data.status != 200) { throw new GraphQLError("API ERROR") }
 
-    const response: APICity = await data.json()
+    const response: APICity[] = await data.json()
     if (!response) { throw new GraphQLError("City not found")}
 
-    
+    console.log(response)
 
-    return getTrueWeather(response.latitude, response.longitude, api_key)
+    return getTrueWeather(response[0].latitude, response[0].longitude, api_key)
 
 }
 
@@ -95,12 +96,12 @@ export async function getLocaltime(city:string) {
 
         if (data.status != 200) { throw new GraphQLError("API ERROR") }
 
-    const response: APICity = await data.json()
+    const response: APICity[] = await data.json()
     if (!response) { throw new GraphQLError("City not found")}
 
     console.log(response)
 
-    return getTrueLocaltime(response.latitude, response.longitude, api_key)
+    return getTrueLocaltime(response[0].latitude, response[0].longitude, api_key)
     
 }
 
